@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in CRM Sales Cloud - Comprehensive Use Cases</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --sales-blue: #2563eb;
+            --revenue-green: #10b981;
+            --opportunity-orange: #f59e0b;
+            --pipeline-purple: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color), #0b1220);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--sales-blue), var(--revenue-green), var(--opportunity-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, var(--sales-blue), var(--revenue-green));
+            border: none;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sales-blue), var(--revenue-green), var(--opportunity-orange));
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .icon.ml { background: rgba(37, 99, 235, 0.2); color: var(--sales-blue); }
+        .icon.gen { background: rgba(16, 185, 129, 0.2); color: var(--revenue-green); }
+        .icon.ag { background: rgba(139, 92, 246, 0.2); color: var(--pipeline-purple); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-content {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--sales-blue), var(--revenue-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .architecture-item::before {
+            content: '→';
+            color: var(--sales-blue);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-title {
+            color: var(--sales-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sales-blue);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .sales-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .revenue-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        .opportunity-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 AI in CRM Sales Cloud</h1>
+            <p class="subtitle">Comprehensive Guide to Machine Learning, Generative AI, and Agentic Systems in Sales Operations, Pipeline Management, and Revenue Optimization</p>
+        </header>
+
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('ml')">🔮 ML / Predictive</button>
+            <button class="nav-btn" onclick="showSection('gen')">✍️ Generative AI</button>
+            <button class="nav-btn" onclick="showSection('agentic')">🤖 Agentic AI</button>
+        </div>
+
+        <!-- ML / Predictive Use Cases -->
+        <div id="ml" class="content-section active">
+            <h2 class="section-title">🔮 Machine Learning & Predictive Analytics</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Advanced statistical models and algorithms for sales forecasting, opportunity management, and revenue optimization
+            </p>
+
+            <div class="card-grid">
+                <!-- Opportunity Win Probability Scoring -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🎯</div>
+                        <div>
+                            <div class="card-title">Opportunity Win Probability</div>
+                            <div class="card-subtitle">Deal Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Score the probability of winning sales opportunities based on deal characteristics, customer behavior, and historical win rates.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Opportunity Scoring</span>
+                            <span class="tech-tag">Win Probability</span>
+                            <span class="tech-tag">Deal Analysis</span>
+                            <span class="tech-tag">Sales Forecasting</span>
+                            <span class="tech-tag">Pipeline Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Deal Data → Historical Analysis → Probability Modeling → Scoring → Forecasting → Strategy</div>
+                            <div class="architecture-item">Opportunity Data → Analysis → Scoring → Prioritization → Forecasting → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical deal outcomes</li>
+                                <li>Deal characteristics</li>
+                                <li>Customer engagement data</li>
+                                <li>Sales cycle stages</li>
+                                <li>Competitive analysis</li>
+                                <li>Timeline factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Win Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Forecasting Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Pipeline Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Forecasting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📈</div>
+                        <div>
+                            <div class="card-title">Sales Forecasting</div>
+                            <div class="card-subtitle">Revenue Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict future sales revenue and pipeline performance using historical data, market trends, and opportunity analysis.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Sales Forecasting</span>
+                            <span class="tech-tag">Revenue Prediction</span>
+                            <span class="tech-tag">Pipeline Analysis</span>
+                            <span class="tech-tag">Trend Analysis</span>
+                            <span class="tech-tag">Performance Metrics</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Historical Data → Trend Analysis → Forecasting → Revenue Prediction → Planning → Optimization</div>
+                            <div class="architecture-item">Sales Data → Analysis → Forecasting → Revenue → Planning → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Historical sales data</li>
+                                <li>Market trends</li>
+                                <li>Pipeline data</li>
+                                <li>Seasonal patterns</li>
+                                <li>Deal velocity</li>
+                                <li>Win rates</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Forecasting Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Revenue Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Planning Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipeline Health Scoring -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📊</div>
+                        <div>
+                            <div class="card-title">Pipeline Health</div>
+                            <div class="card-subtitle">Deal Quality</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Assess the overall health and quality of the sales pipeline by analyzing deal progression, stage distribution, and risk factors.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Pipeline Analysis</span>
+                            <span class="tech-tag">Deal Quality</span>
+                            <span class="tech-tag">Risk Assessment</span>
+                            <span class="tech-tag">Stage Distribution</span>
+                            <span class="tech-tag">Sales Metrics</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Pipeline Data → Stage Analysis → Quality Assessment → Risk Scoring → Health Scoring → Optimization</div>
+                            <div class="architecture-item">Deal Data → Analysis → Assessment → Scoring → Health → Improvement</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Deal stage progression</li>
+                                <li>Time in stage metrics</li>
+                                <li>Deal size distribution</li>
+                                <li>Win probability scores</li>
+                                <li>Forecast accuracy</li>
+                                <li>Risk factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Health Assessment</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Risk Identification</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Pipeline Quality</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deal Risk Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">⚠️</div>
+                        <div>
+                            <div class="card-title">Deal Risk</div>
+                            <div class="card-subtitle">Risk Assessment</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict the risk of deal loss or delay by analyzing deal characteristics, customer behavior, and external factors.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Risk Assessment</span>
+                            <span class="tech-tag">Deal Analysis</span>
+                            <span class="tech-tag">Loss Prediction</span>
+                            <span class="tech-tag">Mitigation Strategies</span>
+                            <span class="tech-tag">Deal Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Deal Data → Risk Analysis → Prediction → Mitigation → Monitoring → Prevention</div>
+                            <div class="architecture-item">Customer Data → Analysis → Risk → Strategy → Monitoring → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Deal progression patterns</li>
+                                <li>Customer engagement levels</li>
+                                <li>Competitive factors</li>
+                                <li>Timeline pressures</li>
+                                <li>Stakeholder changes</li>
+                                <li>External market factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Risk Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Risk Mitigation</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Deal Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next-Best-Action Modeling -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🎯</div>
+                        <div>
+                            <div class="card-title">Next-Best-Action</div>
+                            <div class="card-subtitle">Sales Strategy</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Recommend the optimal next action for sales reps based on deal stage, customer behavior, and historical success patterns.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Action Recommendation</span>
+                            <span class="tech-tag">Sales Strategy</span>
+                            <span class="tech-tag">Behavioral Analysis</span>
+                            <span class="tech-tag">Success Patterns</span>
+                            <span class="tech-tag">Sales Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Data → Behavior Analysis → Action Modeling → Recommendation → Execution → Results</div>
+                            <div class="architecture-item">Deal Data → Analysis → Modeling → Recommendations → Actions → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Customer interaction history</li>
+                                <li>Deal stage progression</li>
+                                <li>Historical action outcomes</li>
+                                <li>Customer preferences</li>
+                                <li>Timing factors</li>
+                                <li>Success patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Action Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Sales Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Deal Velocity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Expansion Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🚀</div>
+                        <div>
+                            <div class="card-title">Account Expansion</div>
+                            <div class="card-subtitle">Growth Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict opportunities for account expansion and upselling based on customer usage patterns, satisfaction, and business growth.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Account Analysis</span>
+                            <span class="tech-tag">Expansion Prediction</span>
+                            <span class="tech-tag">Upselling Opportunities</span>
+                            <span class="tech-tag">Customer Growth</span>
+                            <span class="tech-tag">Revenue Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Account Data → Usage Analysis → Growth Prediction → Expansion → Strategy → Revenue</div>
+                            <div class="architecture-item">Customer Data → Analysis → Prediction → Expansion → Strategy → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Customer usage patterns</li>
+                                <li>Satisfaction metrics</li>
+                                <li>Business growth indicators</li>
+                                <li>Product adoption</li>
+                                <li>Engagement levels</li>
+                                <li>Competitive positioning</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Expansion Prediction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Revenue Growth</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Customer Retention</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generative AI Use Cases -->
+        <div id="gen" class="content-section">
+            <h2 class="section-title">✍️ Generative AI Applications</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                AI-powered content creation, communication, and analysis for sales enablement, customer engagement, and deal management
+            </p>
+
+            <div class="card-grid">
+                <!-- Sales Email Drafting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📧</div>
+                        <div>
+                            <div class="card-title">Sales Email Drafting</div>
+                            <div class="card-subtitle">Communication Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate personalized sales emails tailored to prospect profiles, industry, and engagement history to improve response rates and conversion.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Email Generation</span>
+                            <span class="tech-tag">Personalization</span>
+                            <span class="tech-tag">Sales Communication</span>
+                            <span class="tech-tag">Response Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Prospect Data → Profile Analysis → Email Generation → Personalization → Review → Sending</div>
+                            <div class="architecture-item">Customer Data → Analysis → Generation → Customization → Review → Delivery</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Prospect profile information</li>
+                                <li>Industry context</li>
+                                <li>Previous engagement history</li>
+                                <li>Sales objectives</li>
+                                <li>Brand guidelines</li>
+                                <li>Response tracking</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Email Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Response Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Conversion Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proposal Generation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📄</div>
+                        <div>
+                            <div class="card-title">Proposal Generation</div>
+                            <div class="card-subtitle">Deal Documentation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive sales proposals with customized solutions, pricing, and value propositions based on customer requirements and industry standards.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Proposal Generation</span>
+                            <span class="tech-tag">Solution Design</span>
+                            <span class="tech-tag">Pricing Strategy</span>
+                            <span class="tech-tag">Value Proposition</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Requirements → Solution Design → Proposal Generation → Pricing → Review → Submission</div>
+                            <div class="architecture-item">Requirement Data → Design → Generation → Pricing → Review → Delivery</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Customer requirements</li>
+                                <li>Industry standards</li>
+                                <li>Pricing models</li>
+                                <li>Solution templates</li>
+                                <li>Value propositions</li>
+                                <li>Competitive analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Proposal Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Win Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">4-6 hours</div>
+                                <div class="metric-label">Proposal Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Summaries -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📋</div>
+                        <div>
+                            <div class="card-title">Account Summaries</div>
+                            <div class="card-subtitle">Customer Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive account summaries with key insights, relationship history, and strategic opportunities for account management.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Account Analysis</span>
+                            <span class="tech-tag">Relationship Mapping</span>
+                            <span class="tech-tag">Strategic Insights</span>
+                            <span class="tech-tag">Account Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Account Data → Relationship Analysis → Insight Generation → Summary → Strategy → Management</div>
+                            <div class="architecture-item">Customer Data → Analysis → Insights → Summary → Strategy → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Account interaction history</li>
+                                <li>Relationship mapping</li>
+                                <li>Business context</li>
+                                <li>Opportunity analysis</li>
+                                <li>Risk factors</li>
+                                <li>Growth potential</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Summary Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Account Understanding</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">6-8 hours</div>
+                                <div class="metric-label">Summary Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meeting Preparation Briefs -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📅</div>
+                        <div>
+                            <div class="card-title">Meeting Preparation</div>
+                            <div class="card-subtitle">Sales Enablement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive meeting briefs with customer insights, talking points, and strategic objectives for sales meetings and presentations.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Meeting Preparation</span>
+                            <span class="tech-tag">Sales Enablement</span>
+                            <span class="tech-tag">Customer Insights</span>
+                            <span class="tech-tag">Strategic Planning</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Meeting Context → Customer Analysis → Brief Generation → Talking Points → Strategy → Execution</div>
+                            <div class="architecture-item">Context Data → Analysis → Brief → Points → Strategy → Meeting</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Meeting objectives</li>
+                                <li>Customer background</li>
+                                <li>Previous interactions</li>
+                                <li>Current opportunities</li>
+                                <li>Competitive landscape</li>
+                                <li>Strategic priorities</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Brief Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Meeting Success</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 minutes</div>
+                                <div class="metric-label">Brief Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Summary Generation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📞</div>
+                        <div>
+                            <div class="card-title">Call Summaries</div>
+                            <div class="card-subtitle">Conversation Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate comprehensive call summaries with key discussion points, action items, and next steps from sales calls and customer interactions.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Call Summarization</span>
+                            <span class="tech-tag">Conversation Analysis</span>
+                            <span class="tech-tag">Action Items</span>
+                            <span class="tech-tag">Follow-up Planning</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Call Recording → Transcription → Analysis → Summary Generation → Action Items → Follow-up</div>
+                            <div class="architecture-item">Audio Data → Processing → Analysis → Summary → Actions → Planning</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Call audio recordings</li>
+                                <li>Speech-to-text conversion</li>
+                                <li>Key information extraction</li>
+                                <li>Action item identification</li>
+                                <li>Follow-up requirements</li>
+                                <li>CRM integration</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Summary Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Follow-up Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-60 seconds</div>
+                                <div class="metric-label">Summary Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objection Handling Suggestions -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">💡</div>
+                        <div>
+                            <div class="card-title">Objection Handling</div>
+                            <div class="card-subtitle">Sales Strategy</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate effective responses and strategies for handling common sales objections based on product knowledge and customer context.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Objection Handling</span>
+                            <span class="tech-tag">Sales Strategy</span>
+                            <span class="tech-tag">Response Generation</span>
+                            <span class="tech-tag">Customer Context</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Objection Data → Context Analysis → Response Generation → Strategy → Training → Success</div>
+                            <div class="architecture-item">Objection Input → Analysis → Response → Strategy → Training → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Common objection patterns</li>
+                                <li>Product knowledge</li>
+                                <li>Customer context</li>
+                                <li>Response templates</li>
+                                <li>Success stories</li>
+                                <li>Training materials</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Response Quality</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Objection Resolution</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">5-10 minutes</div>
+                                <div class="metric-label">Response Generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agentic AI Use Cases -->
+        <div id="agentic" class="content-section">
+            <h2 class="section-title">🤖 Agentic AI Systems</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Autonomous AI agents that can reason, plan, and execute complex sales operations and customer relationship management workflows
+            </p>
+
+            <div class="card-grid">
+                <!-- Autonomous Sales Assistant Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🤖</div>
+                        <div>
+                            <div class="card-title">Autonomous Sales Assistant</div>
+                            <div class="card-subtitle">Sales Enablement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Provide autonomous sales assistance through AI agents that can handle prospecting, qualification, and initial customer interactions.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Autonomous Sales</span>
+                            <span class="tech-tag">Sales Assistant</span>
+                            <span class="tech-tag">Prospecting Automation</span>
+                            <span class="tech-tag">Qualification</span>
+                            <span class="tech-tag">Customer Interaction</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Prospect Data → Qualification → Interaction → Handoff → Follow-up → Conversion</div>
+                            <div class="architecture-item">Lead Data → Processing → Interaction → Qualification → Handoff → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Prospect databases</li>
+                                <li>Qualification criteria</li>
+                                <li>Interaction scripts</li>
+                                <li>CRM integration</li>
+                                <li>Follow-up protocols</li>
+                                <li>Success metrics</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Lead Qualification</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Response Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Sales Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opportunity Management Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🎯</div>
+                        <div>
+                            <div class="card-title">Opportunity Management</div>
+                            <div class="card-subtitle">Deal Tracking</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automate opportunity tracking and management by monitoring deal progression, identifying risks, and recommending actions.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Opportunity Management</span>
+                            <span class="tech-tag">Deal Tracking</span>
+                            <span class="tech-tag">Risk Monitoring</span>
+                            <span class="tech-tag">Action Recommendations</span>
+                            <span class="tech-tag">Pipeline Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Opportunity Data → Progression Tracking → Risk Analysis → Recommendations → Actions → Results</div>
+                            <div class="architecture-item">Deal Data → Tracking → Analysis → Recommendations → Actions → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Opportunity stage data</li>
+                                <li>Progression metrics</li>
+                                <li>Risk indicators</li>
+                                <li>Action templates</li>
+                                <li>Success criteria</li>
+                                <li>Timeline factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Deal Tracking</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Risk Identification</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Deal Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deal Progression Orchestration Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🔄</div>
+                        <div>
+                            <div class="card-title">Deal Progression</div>
+                            <div class="card-subtitle">Pipeline Orchestration</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Orchestrate deal progression through the sales pipeline by coordinating activities, managing stakeholders, and optimizing timing.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Deal Orchestration</span>
+                            <span class="tech-tag">Pipeline Management</span>
+                            <span class="tech-tag">Stakeholder Coordination</span>
+                            <span class="tech-tag">Timing Optimization</span>
+                            <span class="tech-tag">Activity Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Deal Data → Stage Management → Stakeholder Coordination → Activity Orchestration → Progression → Closure</div>
+                            <div class="architecture-item">Pipeline Data → Management → Coordination → Orchestration → Progression → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Deal stage requirements</li>
+                                <li>Stakeholder information</li>
+                                <li>Activity templates</li>
+                                <li>Timing strategies</li>
+                                <li>Approval workflows</li>
+                                <li>Success criteria</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Progression Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Stakeholder Engagement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Deal Velocity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Expansion Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🚀</div>
+                        <div>
+                            <div class="card-title">Account Expansion</div>
+                            <div class="card-subtitle">Growth Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Identify and pursue account expansion opportunities by analyzing usage patterns, customer needs, and cross-selling potential.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Account Expansion</span>
+                            <span class="tech-tag">Growth Management</span>
+                            <span class="tech-tag">Cross-selling</span>
+                            <span class="tech-tag">Upselling</span>
+                            <span class="tech-tag">Customer Analysis</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Account Data → Usage Analysis → Opportunity Identification → Strategy → Expansion → Revenue</div>
+                            <div class="architecture-item">Customer Data → Analysis → Opportunities → Strategy → Expansion → Results</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Account usage data</li>
+                                <li>Customer needs analysis</li>
+                                <li>Cross-selling opportunities</li>
+                                <li>Product compatibility</li>
+                                <li>Growth potential</li>
+                                <li>Revenue targets</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Expansion Success</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Revenue Growth</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Customer Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Coaching Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🎓</div>
+                        <div>
+                            <div class="card-title">Sales Coaching</div>
+                            <div class="card-subtitle">Performance Development</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Provide personalized sales coaching and training recommendations based on performance data, skill gaps, and best practices.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Sales Coaching</span>
+                            <span class="tech-tag">Performance Analysis</span>
+                            <span class="tech-tag">Skill Development</span>
+                            <span class="tech-tag">Training Recommendations</span>
+                            <span class="tech-tag">Best Practices</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Performance Data → Skill Analysis → Coaching → Training → Development → Improvement</div>
+                            <div class="architecture-item">Rep Data → Analysis → Coaching → Training → Development → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Sales performance metrics</li>
+                                <li>Skill assessment data</li>
+                                <li>Training materials</li>
+                                <li>Best practices</li>
+                                <li>Coaching templates</li>
+                                <li>Development goals</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Coaching Effectiveness</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Skill Improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Performance Growth</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipeline Monitoring Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">📊</div>
+                        <div>
+                            <div class="card-title">Pipeline Monitoring</div>
+                            <div class="card-subtitle">Sales Analytics</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Continuously monitor sales pipeline health, identify bottlenecks, and provide real-time insights for pipeline optimization.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Pipeline Monitoring</span>
+                            <span class="tech-tag">Sales Analytics</span>
+                            <span class="tech-tag">Bottleneck Identification</span>
+                            <span class="tech-tag">Real-time Insights</span>
+                            <span class="tech-tag">Pipeline Optimization</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Pipeline Data → Health Analysis → Bottleneck Detection → Insights → Optimization → Results</div>
+                            <div class="architecture-item">Sales Data → Monitoring → Analysis → Insights → Optimization → Success</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Pipeline stage data</li>
+                                <li>Deal progression metrics</li>
+                                <li>Velocity indicators</li>
+                                <li>Bottleneck patterns</li>
+                                <li>Performance benchmarks</li>
+                                <li>Optimization strategies</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Pipeline Visibility</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-90%</div>
+                                <div class="metric-label">Bottleneck Resolution</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Pipeline Velocity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ Built with cutting-edge AI technologies for the future of sales and revenue management</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                Note: Implementation requires careful consideration of customer privacy, data security, and sales ethics
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
